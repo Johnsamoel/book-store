@@ -15,16 +15,17 @@ model User {
   createdAt DateTime  @default(now())
   name      String    @db.VarChar(50)
   email     String    @unique @db.VarChar(255)
+  password  String
   transactions Transactions[]
 }
 
 model Book {
-  id        Int      @id @default(autoincrement())
+  id        Int      @unique @id @default(autoincrement())
   title     String   @db.VarChar(255)
   author    String   @db.VarChar(50)
-  ISBN      Int      @unique
+  ISBN      String      @unique 
   quantity  Int 
-  self_loc  String   @db.VarChar(255)
+  shelf_loc  String   @db.VarChar(255)
   transactions Transactions[]
 }
 
