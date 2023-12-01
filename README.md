@@ -9,9 +9,6 @@ Welcome to the Book Store project! This repository contains a Node.js applicatio
 3. [Installation](#installation)
 4. [Usage](#usage)
 5. [API Documentation](#api-documentation)
-6. [Folder Structure](#folder-structure)
-7. [Contributing](#contributing)
-8. [License](#license)
 
 ## Introduction
 
