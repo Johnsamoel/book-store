@@ -30,16 +30,16 @@ model Book {
 }
 
 model Transactions {
-  id                 Int       @id @default(autoincrement())
-  createdAt          DateTime  @default(now())
-  return_date        DateTime 
-  Actual_return_date DateTime
-  Status             String   @db.VarChar(25)
+  id                 Int        @id @default(autoincrement())
+  createdAt          DateTime   @default(now())
+  return_date        DateTime   
+  Actual_return_date DateTime? 
+  Status             String     @db.VarChar(25)
   book_id            Int       
   user_id            Int       
-  
+  overdue            Boolean   @default(false)
   user               User      @relation(fields: [user_id], references: [id])
   book               Book      @relation(fields: [book_id], references: [id])
   
-  @@unique([user_id, book_id], name: "unique_user_book")
+ @@index([user_id, book_id], name: "index_user_book")
 }
