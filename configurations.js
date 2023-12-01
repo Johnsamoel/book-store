@@ -5,7 +5,6 @@ const requiredEnvs = ["DATABASE_NAME", "HASHING_SALT_ROUND", "JWT_SECRET" , "RUN
 // check that if any of the variables is undefined..
 requiredEnvs.forEach((env) => {
   if (!process.env[env]) {
-    console.error(`${env} variable is required"`);
     process.exit();
   }
 });

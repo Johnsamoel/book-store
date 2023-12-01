@@ -20,7 +20,7 @@ const UpdateUser = async (req, res , next) => {
       let hashedPassword
 
       if(password) {
-        hashedPassword =  await bycrypt.hash(password , HASHING_SALTROUND)
+        hashedPassword =  await bycrypt.hash(password , parseInt(HASHING_SALTROUND) )
       }
 
       const updatedUser = await prisma.user.update({
@@ -85,14 +85,13 @@ const GetUsers = async (req, res, next) => {
         .json({ books, currentPage: parseInt(pageId), itemsPerPage });
     } catch (error) {
       // Handle errors
-      console.error(error);
       error = new Error(error);
       error.StatusCode = 500;
       next(error);
     }
   };
 
-const DeleteUser = async (req, res) => {
+const DeleteUser = async (req, res, next) => {
   try {
     let { userId } = req.params;
       
@@ -116,6 +115,9 @@ const DeleteUser = async (req, res) => {
         where: {
             id: userId
         }
+    }).catch(() => {
+     // if the user has associated records in the transactions db it won't be deleted
+      return res.status(400).json({message: "this user can't be deleted"})
     })
 
     if(deletedUser) {

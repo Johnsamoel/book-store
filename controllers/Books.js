@@ -56,7 +56,7 @@ const GetBooks = async (req, res, next) => {
     for (const prop in req.body) {
         if (req.body[prop]) {
             // Use Prisma's query building to prevent SQL injection
-            if (prop === 'name' || prop === 'author' || prop === 'ISBN' || prop === 'shelf_loc' ) {
+            if (prop === 'title' || prop === 'author' || prop === 'ISBN' || prop === 'shelf_loc' ) {
                 // For "name" or "email", use contains instead of equals
                 where[prop] = { contains: req.body[prop] };
             } else {
@@ -64,7 +64,7 @@ const GetBooks = async (req, res, next) => {
             }
         }
     }
-
+  
     // Fetch 10 books based on the pageId
     const books = await prisma.book.findMany({
       take: itemsPerPage,
@@ -77,7 +77,6 @@ const GetBooks = async (req, res, next) => {
       .json({ books, currentPage: parseInt(pageId), itemsPerPage });
   } catch (error) {
     // Handle errors
-    console.error(error);
     error = new Error(error);
     error.StatusCode = 500;
     next(error);
@@ -144,6 +143,9 @@ const DeleteBook = async (req, res , next) => {
       where: {
         id: bookId,
       },
+    }).catch((error) => {
+      // if the book has associated records in the transactions db it won't be deleted
+      return  res.status(400).json({message: "This book Can't be deleted"})
     });
 
     if (deletedBook) {
@@ -210,7 +212,6 @@ const checkoutBook = async (req, res, next) => {
 
   } catch (error) {
     // Handle errors
-    console.error(error);
     error = new Error(error);
     error.StatusCode = 500;
     next(error);
@@ -284,7 +285,6 @@ const ReturnBook = async (req, res, next) => {
 
   } catch (error) {
     // Handle errors
-    console.error(error);
     error = new Error(error);
     error.StatusCode = 500;
     next(error);
@@ -335,7 +335,7 @@ const GetUserBooks = async (req, res, next) => {
       .json({ books, currentPage: parseInt(pageId), itemsPerPage });
   } catch (error) {
     // Handle errors
-    console.error(error);
+
     error = new Error(error);
     error.StatusCode = 500;
     next(error);
