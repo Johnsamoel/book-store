@@ -2,4 +2,4 @@ DATABASE_NAME=bookstore
 HASHING_SALT_ROUND=12
 JWT_SECRET=UserSecretKeyToken
 RUNNING_PORT=5000
-DATABASE_URL="postgresql://postgres:john12345@localhost:5432/bookstore?schema=public"
+DATABASE_URL="postgresql://username:password@localhost:5432/bookstore?schema=public"
