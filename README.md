@@ -27,8 +27,8 @@ Once you clone the project, add your enviroment variables, And implement the Ins
 git clone https://github.com/Johnsamoel/book-store.git
 cd book-store
 npm install
-npm start
 npx prisma migrate dev --name init
+npm start
 
 ```
 
