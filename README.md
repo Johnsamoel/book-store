@@ -29,6 +29,7 @@ git clone https://github.com/Johnsamoel/book-store.git
 cd book-store
 npm install
 npm start
+npx prisma migrate dev --name init
 
 ```
 
