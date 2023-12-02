@@ -2,6 +2,8 @@
 
 Welcome to the Book Store project! This repository contains a Node.js application for managing a book store.
 
+You can also check my env-example file to add your own variables.
+
 ## Table of Contents
 
 1. [Introduction](#introduction)
